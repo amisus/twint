@@ -55,11 +55,11 @@ def main():
     f.User_full = True
 
     runs = [
-        twint.run.Profile,  # this doesn't
+        #twint.run.Profile,# this doesn't
         twint.run.Search,  # this works
-        twint.run.Following,
-        twint.run.Followers,
-        twint.run.Favorites,
+        # twint.run.Following,
+        # twint.run.Followers,
+        # twint.run.Favorites,
     ]
 
     tests = [test_reg, test_json, test_csv, test_db]
@@ -86,6 +86,16 @@ def main():
         os.remove(_file)
 
     print("[+] Testing complete!")
+
+
+    # c = twint.Config()
+    # # c.Username = "bgpstream"
+    # # c.Search = "Cisco BGPStream"
+    # c.Search = "from:@bgpstream"
+    # c.Since = '2020-12-21 03:43:00'
+    # c.Limit = 100
+    # c.Store_object = True
+    # twint.run.Search(c)
 
 
 if __name__ == '__main__':

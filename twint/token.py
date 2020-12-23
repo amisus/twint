@@ -1,6 +1,7 @@
 import re
 import time
-
+from random_user_agent.user_agent import UserAgent
+from random_user_agent.params import SoftwareName, OperatingSystem
 import requests
 import logging as logme
 
@@ -17,8 +18,13 @@ class RefreshTokenException(Exception):
 
 class Token:
     def __init__(self, config):
+        self.software_names = [SoftwareName.CHROME.value]
+        self.operating_systems = [OperatingSystem.WINDOWS.value]
+        self.useragentgenerator = UserAgent(software_names=self.software_names,
+                                            operating_systems=self.operating_systems)
         self._session = requests.Session()
-        self._session.headers.update({'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/78.0'})
+        self._session.headers.update({'User-Agent': str(self.useragentgenerator.get_random_user_agent()) })
+        self._session.proxies.update({'http':'http://socratesproxyco.amisustest.co.uk:3128'})
         self.config = config
         self._retries = 5
         self._timeout = 10
